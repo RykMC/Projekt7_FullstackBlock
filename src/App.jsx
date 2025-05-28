@@ -7,11 +7,10 @@ import Home from "./pages/Home";
 const App = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Unser Fullstack Block</h1>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path element={<Home />} />
-          <Route path="createPost" element={<CreatePostPage />} />
+          <Route index element={<Home />} />
+          <Route path="createPost" element={<CreatePostPage />} /> 
           <Route path="details" element={<PostDetailsPage />} />
         </Route>
       </Routes>
