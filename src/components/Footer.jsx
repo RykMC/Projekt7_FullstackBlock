@@ -10,7 +10,7 @@ function Footer() {
               <a href="#" className="hover:text-indigo-400 transition">Kontakt</a>
             </div>
             <div className="text-xs text-gray-500">
-              © {new Date().getFullYear()} Rico's Fullstack Block
+              © {new Date().getFullYear()} Julia's und Rico's Fullstack Block
             </div>
           </div>
         </footer>
