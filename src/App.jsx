@@ -1,21 +1,22 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PostDetailsPage from "./pages/PostDetailsPage";
 import MainLayout from "./layout/MainLayout";
 import CreatePostPage from "./pages/CreatePostPage";
 import Home from "./pages/Home";
 
-const App = () => {
+function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Unser Fullstack Block</h1>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path element={<Home />} />
-          <Route path="createPost" element={<CreatePostPage />} />
-          <Route path="details" element={<PostDetailsPage />} />
-        </Route>
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/create" element={<CreatePostPage />} />
+            <Route path="/details" element={<PostDetailsPage />} />
+          </Route>
+        </Routes>
+      </Router>
     </>
   );
-};
+}
 export default App;
