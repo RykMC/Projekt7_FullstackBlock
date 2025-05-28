@@ -1,13 +1,5 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "../components";
+const PostDetailsPage = () => {
+  return <div></div>;
+};
 
-function MainLayout() {
-  return (
-    <>
-      <Navbar>Navbar</Navbar>
-      <Outlet>Outlet</Outlet>
-      <Footer>Footer</Footer>
-    </>
-  );
-}
-export default MainLayout;
+export default PostDetailsPage;
