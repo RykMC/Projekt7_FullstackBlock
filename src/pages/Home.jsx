@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Link importieren
 import CreatePostPage from "./CreatePostPage";
 
 export default function Home() {
@@ -20,8 +21,7 @@ export default function Home() {
 
     fetchPosts();
   }, []);
-  console.log(posts);
-
+  console.log("Posts", posts);
   // ✅ Neues Post direkt zur Liste hinzufügen
   const addPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
@@ -42,7 +42,7 @@ export default function Home() {
 
         <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-md hover:shadow-xl transition">
           <h3 className="text-2xl font-bold text-amber-400 mb-2">
-            📝 Letzter Beitrag
+            📝 Letzte Beiträge
           </h3>
           {posts.length === 0 ? (
             <p className="text-gray-400">Noch keine Beiträge vorhanden.</p>
@@ -50,13 +50,29 @@ export default function Home() {
             <ul className="space-y-4">
               {posts.map((post, index) => (
                 <li key={index} className="bg-gray-800 p-4 rounded shadow">
-                  <h3 className="text-amber-300 font-bold">{post.title}</h3>
-                  <p className="text-gray-300">{post.content}</p>
-                  <p className="text-xs text-gray-500 mt-2">{post.author}</p>
-                  {/* <p className="text-xs text-gray-500 mt-2">{post.date}</p> */}
-                  <p className="text-xs text-gray-500 mt-2">
-                    {new Date(post.date).toLocaleDateString("de-DE")}
-                  </p>
+                  {/* Link zu Detailseite hinzugefügt */}
+                  <Link to={`/posts/${post.id}`} className="block">
+                    <h3 className="text-amber-300 font-bold hover:text-amber-200 transition">
+                      {post.title}
+                    </h3>
+                    <p className="text-gray-300">
+                      {post.content.substring(0, 150)}
+                      {post.content.length > 150 ? "..." : ""}
+                    </p>
+                    <div className="flex justify-between mt-2">
+                      <p className="text-xs text-gray-500">{post.author}</p>
+                      <p className="text-xs text-gray-500">
+                        {post.date
+                          ? new Date(post.date).toLocaleDateString("de-DE")
+                          : "Kein Datum"}
+                      </p>
+                    </div>
+                    <div className="mt-2 text-right">
+                      <span className="text-xs text-cyan-500 hover:text-cyan-400 transition">
+                        Weiterlesen →
+                      </span>
+                    </div>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -77,7 +93,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 🧠 Modal erhält jetzt addPost Callback */}
       <CreatePostPage
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
