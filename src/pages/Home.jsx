@@ -11,7 +11,8 @@ export default function Home() {
         const res = await fetch("http://localhost:3000/posts");
         if (!res.ok) throw new Error("Fehler beim Laden");
         const json = await res.json();
-        setPosts(json.data);
+        // Reverse the array to show newest posts first
+        setPosts(json.data.reverse());
       } catch (err) {
         console.error("Fehler beim Laden:", err);
       }
@@ -19,6 +20,7 @@ export default function Home() {
 
     fetchPosts();
   }, []);
+  console.log(posts);
 
   // ✅ Neues Post direkt zur Liste hinzufügen
   const addPost = (newPost) => {
@@ -50,8 +52,10 @@ export default function Home() {
                 <li key={index} className="bg-gray-800 p-4 rounded shadow">
                   <h3 className="text-amber-300 font-bold">{post.title}</h3>
                   <p className="text-gray-300">{post.content}</p>
+                  <p className="text-xs text-gray-500 mt-2">{post.author}</p>
+                  {/* <p className="text-xs text-gray-500 mt-2">{post.date}</p> */}
                   <p className="text-xs text-gray-500 mt-2">
-                    von {post.author}
+                    {new Date(post.date).toLocaleDateString("de-DE")}
                   </p>
                 </li>
               ))}
