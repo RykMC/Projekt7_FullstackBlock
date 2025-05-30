@@ -15,9 +15,6 @@ export default function PostDetail() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [actionMessage, setActionMessage] = useState({ type: "", text: "" });
 
-  // Aktueller Benutzer (für Berechtigungsprüfung)
-  const currentUser = "Julia-farasi"; // Der aktuelle Benutzer laut Angabe
-
   useEffect(() => {
     const fetchPostDetails = async () => {
       setLoading(true);
