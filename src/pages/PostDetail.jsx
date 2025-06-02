@@ -8,7 +8,8 @@ export default function PostDetail() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+console.log("useParams ID:", useParams);
+console.log("ID:", id);
   // State für Modal und Aktionen
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -28,6 +29,7 @@ export default function PostDetail() {
         }
 
         const json = await response.json();
+        console.log(json);
         setPost(json.data);
 
         // DEBUG: Konsolenausgabe zum Überprüfen des Posts
