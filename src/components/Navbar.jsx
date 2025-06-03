@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { FiHome, FiPlusCircle, FiInfo, FiMenu } from "react-icons/fi";
 import { useState } from "react";
-import CreatePostPage from "../pages/CreatePostPage";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,22 +11,7 @@ export default function Navbar() {
         <Link to="/" className="text-xl font-bold text-indigo-400">
           🧱 Fullstack Block
         </Link>
-
-        {/* Mobile Menu Icon */}
-        <button
-          className="md:hidden text-xl"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <FiMenu />
-        </button>
       </div>
-
-      {/* Mobile Dropdown */}
-      {menuOpen && (
-        <div className="md:hidden bg-gray-800 px-4 py-2 space-y-2">
-          <MobileLink to="/createPostPage" label="Beitrag erstellen" />
-        </div>
-      )}
     </header>
   );
 }

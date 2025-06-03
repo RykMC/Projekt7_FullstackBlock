@@ -20,7 +20,9 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
         title: post.title || "",
         content: post.content || "",
         cover: post.cover || "",
-        date: post.date ? post.date.split("T")[0] : new Date().toISOString().split("T")[0],
+        date: post.date
+          ? post.date.split("T")[0]
+          : new Date().toISOString().split("T")[0],
       });
     }
   }, [isOpen, post]);
@@ -54,13 +56,15 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
       if (!response.ok) {
         throw new Error(`Fehler beim Speichern (${response.status})`);
       }
-
       const result = await response.json();
+      console.log("Result", result);
       onSave(result.data); // Parent informieren
       onClose(); // Modal schließen
     } catch (err) {
       console.error("Fehler beim Aktualisieren:", err);
-      setError("Beitrag konnte nicht gespeichert werden. Bitte erneut versuchen.");
+      setError(
+        "Beitrag konnte nicht gespeichert werden. Bitte erneut versuchen."
+      );
     } finally {
       setIsSaving(false);
     }
@@ -73,8 +77,14 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
       <div className="bg-gray-800 text-white w-full max-w-xl rounded-xl shadow-xl border border-gray-700">
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-amber-400">Beitrag bearbeiten</h2>
-            <button type="button" onClick={onClose} className="text-gray-400 hover:text-white">
+            <h2 className="text-2xl font-bold text-amber-400">
+              Beitrag bearbeiten
+            </h2>
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-gray-400 hover:text-white"
+            >
               ✖
             </button>
           </div>
@@ -86,11 +96,40 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
           )}
 
           <div className="space-y-4">
-            <InputField label="Titel" name="title" value={formData.title} onChange={handleChange} required />
-            <InputField label="Autor" name="author" value={formData.author} onChange={handleChange} required />
-            <TextareaField label="Inhalt" name="content" value={formData.content} onChange={handleChange} required />
-            <InputField label="Cover-URL" name="cover" value={formData.cover} onChange={handleChange} />
-            <InputField label="Datum" name="date" value={formData.date} onChange={handleChange} type="date" />
+            <InputField
+              label="Titel"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Autor"
+              name="author"
+              value={formData.author}
+              onChange={handleChange}
+              required
+            />
+            <TextareaField
+              label="Inhalt"
+              name="content"
+              value={formData.content}
+              onChange={handleChange}
+              required
+            />
+            <InputField
+              label="Cover-URL"
+              name="cover"
+              value={formData.cover}
+              onChange={handleChange}
+            />
+            <InputField
+              label="Datum"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              type="date"
+            />
           </div>
 
           <div className="flex justify-end space-x-4 pt-4">
@@ -120,7 +159,9 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
 function InputField({ label, name, value, onChange, type = "text", required }) {
   return (
     <div>
-      <label htmlFor={name} className="block text-sm text-gray-300 mb-1">{label}</label>
+      <label htmlFor={name} className="block text-sm text-gray-300 mb-1">
+        {label}
+      </label>
       <input
         type={type}
         id={name}
@@ -138,7 +179,9 @@ function InputField({ label, name, value, onChange, type = "text", required }) {
 function TextareaField({ label, name, value, onChange, required }) {
   return (
     <div>
-      <label htmlFor={name} className="block text-sm text-gray-300 mb-1">{label}</label>
+      <label htmlFor={name} className="block text-sm text-gray-300 mb-1">
+        {label}
+      </label>
       <textarea
         id={name}
         name={name}

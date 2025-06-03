@@ -8,8 +8,8 @@ export default function PostDetail() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-console.log("useParams ID:", useParams);
-console.log("ID:", id);
+  // console.log("useParams ID:", useParams);
+  // console.log("ID:", id);
   // State für Modal und Aktionen
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -21,15 +21,13 @@ console.log("ID:", id);
       setLoading(true);
       try {
         const response = await fetch(`http://localhost:3000/posts/${id}`);
-
         if (!response.ok) {
           throw new Error(
             `Fehler beim Laden des Beitrags (${response.status})`
           );
         }
-
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         setPost(json.data);
 
         // DEBUG: Konsolenausgabe zum Überprüfen des Posts
@@ -58,7 +56,6 @@ console.log("ID:", id);
     if (isNaN(date.getTime())) {
       return "Ungültiges Datum";
     }
-
     return date.toLocaleDateString("de-DE", {
       year: "numeric",
       month: "long",
@@ -82,13 +79,15 @@ console.log("ID:", id);
   // Handler zum Löschen des Posts (DELETE-Methode)
   const handleDelete = async () => {
     setIsDeleting(true);
-    setActionMessage({ type: "", text: "" });
+    setActionMessage({
+      type: "success",
+      text: "Beitrag wurde erfolgreich gelöscht!",
+    });
 
     try {
       const response = await fetch(`http://localhost:3000/posts/${id}`, {
         method: "DELETE",
       });
-
       if (!response.ok) {
         throw new Error(`Fehler beim Löschen (${response.status})`);
       }
@@ -243,7 +242,6 @@ console.log("ID:", id);
           </>
         )}
 
-      
         {/* Edit Post Modal */}
         <EditPostModal
           isOpen={isEditModalOpen}
