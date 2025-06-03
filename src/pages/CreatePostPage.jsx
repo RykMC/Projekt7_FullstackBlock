@@ -38,7 +38,6 @@ const handleSave = async (e) => {
       date: new Date().toISOString().split("T")[0],
     });
 
-    alert("Beitrag erfolgreich erstellt");
     onClose(); 
   } catch (error) {
     console.error(error);
