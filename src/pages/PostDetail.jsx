@@ -171,11 +171,11 @@ console.log("ID:", id);
             <article className="bg-gray-800 border border-gray-700 rounded-xl shadow-xl overflow-hidden">
               {/* Cover-Bild (falls vorhanden) */}
               {post.cover && (
-                <div className="w-full h-64 sm:h-80 overflow-hidden">
+                <div className="w-full h-40 bg-black/20 flex items-center justify-center rounded-lg overflow-hidden">
                   <img
                     src={post.cover}
                     alt={post.title}
-                    className="w-full h-full object-cover transform hover:scale-105 transition duration-500"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </div>
               )}
@@ -243,19 +243,7 @@ console.log("ID:", id);
           </>
         )}
 
-        {/* Kommentarbereich (optional) */}
-        {post && !loading && !error && (
-          <div className="mt-10 bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg">
-            <h2 className="text-xl font-bold text-amber-400 mb-4">
-              Kommentare
-            </h2>
-
-            <p className="text-gray-400 italic">
-              Kommentarfunktion ist noch nicht verfügbar.
-            </p>
-          </div>
-        )}
-
+      
         {/* Edit Post Modal */}
         <EditPostModal
           isOpen={isEditModalOpen}

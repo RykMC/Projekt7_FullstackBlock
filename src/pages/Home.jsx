@@ -21,11 +21,12 @@ export default function Home() {
 
     fetchPosts();
   }, []);
-  console.log("Posts", posts);
-  // ✅ Neues Post direkt zur Liste hinzufügen
+  
   const addPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
+
+  
 
   return (
     <>
