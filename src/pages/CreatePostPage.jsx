@@ -9,46 +9,43 @@ export default function CreatePostPage({ isOpen, onClose, addPost }) {
     date: new Date().toISOString().split("T")[0], // Setzt das heutige Datum als Standard
   });
 
-  const handleSave = async (e) => {
-    // Erstelle eine Kopie der Formulardaten für den Fall, dass der Server nicht antwortet
-    const newPostData = { ...formData };
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPostData),
-      });
+const handleSave = async (e) => {
+  e.preventDefault();
+  const newPostData = { ...formData };
 
-      if (!response.ok) throw new Error("Fehler beim Speichern");
+  try {
+    const response = await fetch("http://localhost:3000/posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPostData),
+    });
 
-      const result = await response.json();
-      const newPost = result.data || newPostData;
+    if (!response.ok) throw new Error("Fehler beim Speichern");
 
-      console.log("Neuer Post wurde erstellt:", newPost);
+    const result = await response.json();
+    const newPost = result.data || newPostData;
 
-      // Wichtig: Füge den neuen Post zur Liste hinzu BEVOR wir schließen
-      addPost(newPost);
+    console.log("Neuer Post wurde erstellt:", newPost);
 
-      // Den neuen Post zur Liste hinzufügen
-      addPost(result.data);
+    addPost(newPost);
+    
+    // Formular zurücksetzen
+    setFormData({
+      author: "",
+      title: "",
+      content: "",
+      cover: "",
+      date: new Date().toISOString().split("T")[0],
+    });
 
-      // Formular zurücksetzen
-      setFormData({
-        author: "",
-        title: "",
-        content: "",
-        cover: "",
-        date: new Date().toISOString().split("T")[0], // Gibt YYYY-MM-DD zurück
-      });
+    alert("Beitrag erfolgreich erstellt");
+    onClose(); 
+  } catch (error) {
+    console.error(error);
+    alert("Fehler beim Erstellen des Beitrags");
+  }
+};
 
-      alert("Beitrag erfolgreich erstellt");
-      onClose();
-    } catch (error) {
-      console.error(error);
-      alert("Fehler beim Erstellen des Beitrags");
-    }
-  };
 
   if (!isOpen) return null;
 

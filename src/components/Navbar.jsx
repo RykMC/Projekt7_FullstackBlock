@@ -5,12 +5,8 @@ import CreatePostPage from "../pages/CreatePostPage";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [posts, setPosts] = useState([]);
   
-    const addPost = (newPost) => {
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
-  };
+   
 
   return (
     <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
@@ -20,13 +16,7 @@ export default function Navbar() {
           🧱 Fullstack Block
         </Link>
 
-        {/* Desktop Nav */}
-         <button
-            onClick={() => setModalOpen(true)}
-            
-          >
-            ➕ Beitrag erstellen
-          </button>
+        
 
         {/* Mobile Menu Icon */}
         <button
@@ -43,11 +33,6 @@ export default function Navbar() {
           <MobileLink to="/createPostPage" label="Beitrag erstellen" />
         </div>
       )}
-      <CreatePostPage
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        addPost={addPost}
-      />
     </header>
   );
 }
