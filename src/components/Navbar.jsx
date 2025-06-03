@@ -7,8 +7,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
-  
-    const addPost = (newPost) => {
+
+  const addPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
 
@@ -21,12 +21,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-         <button
-            onClick={() => setModalOpen(true)}
-            
-          >
-            ➕ Beitrag erstellen
-          </button>
+        <button onClick={() => setModalOpen(true)}>➕ Beitrag erstellen</button>
 
         {/* Mobile Menu Icon */}
         <button
@@ -51,4 +46,3 @@ export default function Navbar() {
     </header>
   );
 }
-
