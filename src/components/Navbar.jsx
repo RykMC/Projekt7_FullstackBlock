@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import { FiHome, FiPlusCircle, FiInfo, FiMenu } from "react-icons/fi";
 import { useState } from "react";
+import CreatePostPage from "../pages/CreatePostPage";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
+  
+    const addPost = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  };
 
   return (
     <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
@@ -14,10 +21,12 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm items-center">
-          <NavLink to="/" icon={<FiHome />} label="Startseite" />
-          <NavLink to="/createPost" icon={<FiPlusCircle />} label="Beitrag erstellen" />
-        </nav>
+         <button
+            onClick={() => setModalOpen(true)}
+            
+          >
+            ➕ Beitrag erstellen
+          </button>
 
         {/* Mobile Menu Icon */}
         <button
@@ -31,31 +40,15 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="md:hidden bg-gray-800 px-4 py-2 space-y-2">
-          <MobileLink to="/" label="Startseite" />
-          <MobileLink to="/createPost" label="Beitrag erstellen" />
-          <MobileLink to="/details" label="Details" />
+          <MobileLink to="/createPostPage" label="Beitrag erstellen" />
         </div>
       )}
+      <CreatePostPage
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        addPost={addPost}
+      />
     </header>
   );
 }
 
-function NavLink({ to, icon, label }) {
-  return (
-    <Link to={to} className="flex items-center gap-1 hover:text-indigo-300 transition">
-      {icon}
-      {label}
-    </Link>
-  );
-}
-
-function MobileLink({ to, label }) {
-  return (
-    <Link
-      to={to}
-      className="block py-1 text-gray-200 hover:text-indigo-400"
-    >
-      {label}
-    </Link>
-  );
-}

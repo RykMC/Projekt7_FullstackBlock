@@ -40,44 +40,45 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-md hover:shadow-xl transition">
-          <h3 className="text-2xl font-bold text-amber-400 mb-2">
-            📝 Letzte Beiträge
-          </h3>
-          {posts.length === 0 ? (
-            <p className="text-gray-400">Noch keine Beiträge vorhanden.</p>
-          ) : (
-            <ul className="space-y-4">
-              {posts.map((post, index) => (
-                <li key={index} className="bg-gray-800 p-4 rounded shadow">
-                  {/* Link zu Detailseite hinzugefügt */}
-                  <Link to={`/posts/${post.id}`} className="block">
-                    <h3 className="text-amber-300 font-bold hover:text-amber-200 transition">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-300">
-                      {post.content.substring(0, 150)}
-                      {post.content.length > 150 ? "..." : ""}
-                    </p>
-                    <div className="flex justify-between mt-2">
-                      <p className="text-xs text-gray-500">{post.author}</p>
-                      <p className="text-xs text-gray-500">
-                        {post.date
-                          ? new Date(post.date).toLocaleDateString("de-DE")
-                          : "Kein Datum"}
-                      </p>
-                    </div>
-                    <div className="mt-2 text-right">
-                      <span className="text-xs text-cyan-500 hover:text-cyan-400 transition">
-                        Weiterlesen →
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
+       <div className="bg-gray-600 border border-gray-700 p-6 rounded-xl shadow-md hover:shadow-xl transition">
+  <h3 className="text-2xl font-bold text-amber-400 mb-4">
+    📝 Letzte Beiträge
+  </h3>
+
+  {posts.length === 0 ? (
+    <p className="text-gray-400">Noch keine Beiträge vorhanden.</p>
+  ) : (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {posts.map((post, index) => (
+        <div key={index} className="bg-gray-800 p-4 rounded shadow">
+          <Link to={`/posts/${post.id}`} className="block">
+            <h3 className="text-amber-300 font-bold hover:text-amber-200 transition">
+              {post.title}
+            </h3>
+            <p className="text-gray-300">
+              {post.content.substring(0, 10)}
+              {post.content.length > 10 ? "..." : ""}
+            </p>
+            <div className="flex justify-between mt-2">
+              <p className="text-xs text-gray-500">{post.author}</p>
+              <p className="text-xs text-gray-500">
+                {post.date
+                  ? new Date(post.date).toLocaleDateString("de-DE")
+                  : "Kein Datum"}
+              </p>
+            </div>
+            <div className="mt-2 text-right">
+              <span className="text-xs text-cyan-500 hover:text-cyan-400 transition">
+                Weiterlesen →
+              </span>
+            </div>
+          </Link>
         </div>
+      ))}
+    </div>
+  )}
+</div>
+
 
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <button
