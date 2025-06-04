@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CreatePostPage from "./CreatePostPage";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search")?.toLowerCase() || "";
+
   const [posts, setPosts] = useState([]);
+
+  const filteredPosts = posts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(searchQuery) ||
+      post.content.toLowerCase().includes(searchQuery) ||
+      post.author.toLowerCase().includes(searchQuery)
+  );
+  const [isModalOpen, setModalOpen] = useState(false);
+  // const [posts, setPosts] = useState([]);
   const addPost = async (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
@@ -46,33 +58,39 @@ export default function Home() {
             <p className="text-gray-400">Noch keine Beiträge vorhanden.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {posts.map((post, index) => (
-                <div key={index} className="bg-gray-800 p-4 rounded shadow">
-                  <Link to={`/posts/${post.id}`} className="block">
-                    <h3 className="text-amber-300 font-bold hover:text-amber-200 transition">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-300">
-                      {post.content}
-                      {/* // {.substring(0, 10)} */}
-                      {/* {post.content.length > 10 ? "..." : ""} */}
-                    </p>
-                    <div className="flex justify-between mt-2">
-                      <p className="text-xs text-gray-500">{post.author}</p>
-                      <p className="text-xs text-gray-500">
-                        {post.date
-                          ? new Date(post.date).toLocaleDateString("de-DE")
-                          : "Kein Datum"}
+              {/* ..Search/Filter-Function.. */}
+              {filteredPosts.length === 0 ? (
+                <p className="text-gray-400">Keine Beiträge gefunden.</p>
+              ) : (
+                filteredPosts.map((post, index) => (
+                  // {posts.map((post, index) => (
+                  <div key={index} className="bg-gray-800 p-4 rounded shadow">
+                    <Link to={`/posts/${post.id}`} className="block">
+                      <h3 className="text-amber-300 font-bold hover:text-amber-200 transition">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-300">
+                        {post.content}
+                        {/* // {.substring(0, 10)} */}
+                        {/* {post.content.length > 10 ? "..." : ""} */}
                       </p>
-                    </div>
-                    <div className="mt-2 text-right">
-                      <span className="text-xs text-cyan-500 hover:text-cyan-400 transition">
-                        Weiterlesen →
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                      <div className="flex justify-between mt-2">
+                        <p className="text-xs text-gray-500">{post.author}</p>
+                        <p className="text-xs text-gray-500">
+                          {post.date
+                            ? new Date(post.date).toLocaleDateString("de-DE")
+                            : "Kein Datum"}
+                        </p>
+                      </div>
+                      <div className="mt-2 text-right">
+                        <span className="text-xs text-cyan-500 hover:text-cyan-400 transition">
+                          Weiterlesen →
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                ))
+              )}
             </div>
           )}
         </div>

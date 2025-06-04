@@ -1,17 +1,28 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = (e) => {
+    const query = e.target.value;
+    if (query) {
+      setSearchParams({ search: query });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   return (
-    <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="text-xl font-bold text-indigo-400">
-          🧱 Fullstack Block
-        </Link>
-      </div>
-    </header>
+    <nav className="bg-gray-900 px-6 py-4 flex justify-between items-center shadow-md">
+      <h1 className="text-2xl font-bold text-cyan-300">🧱 Fullstack Block</h1>
+
+      <input
+        type="text"
+        placeholder="🔎 Beiträge durchsuchen..."
+        value={searchParams.get("search") || ""}
+        onChange={handleChange}
+        className="rounded-lg px-4 py-2 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+    </nav>
   );
 }
