@@ -27,9 +27,10 @@ export default function CreatePostPage({ isOpen, onClose, addPost }) {
       if (!response.ok) {
         throw new Error(`Fehler beim Speichern: ${response.status}`);
       }
-      const newPost = await response.json(); // Annahme: Die API gibt das erstellte Objekt zurück
+      const res = await response.json();
+      const newPost = res.data; // Annahme: Die API gibt das erstellte Objekt zurück
 
-      console.log("Neuer Post wurde erstellt:", newPost);
+      console.log("newPost vom Server:", newPost);
 
       // Benachrichtige die übergeordnete Komponente, um den Post hinzuzufügen
       addPost(newPost);
