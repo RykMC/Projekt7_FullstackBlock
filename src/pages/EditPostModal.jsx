@@ -45,13 +45,16 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:3000/posts/${post.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `https://project7-fullstackblock.onrender.com/posts/${post.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Fehler beim Speichern (${response.status})`);

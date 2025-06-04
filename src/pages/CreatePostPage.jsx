@@ -18,11 +18,14 @@ export default function CreatePostPage({ isOpen, onClose, addPost }) {
     const newPostData = { ...formData };
 
     try {
-      const response = await fetch("http://localhost:3000/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPostData),
-      });
+      const response = await fetch(
+        "https://project7-fullstackblock.onrender.com/posts",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newPostData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Fehler beim Speichern: ${response.status}`);

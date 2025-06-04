@@ -20,7 +20,9 @@ export default function PostDetail() {
     const fetchPostDetails = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:3000/posts/${id}`);
+        const response = await fetch(
+          `https://project7-fullstackblock.onrender.com/posts/${id}`
+        );
         if (!response.ok) {
           throw new Error(
             `Fehler beim Laden des Beitrags (${response.status})`

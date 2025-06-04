@@ -23,7 +23,9 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/posts");
+        const res = await fetch(
+          "https://project7-fullstackblock.onrender.com/posts"
+        );
         if (!res.ok) throw new Error("Fehler beim Laden");
         const json = await res.json();
         // Reverse the array to show newest posts first
@@ -70,9 +72,8 @@ export default function Home() {
                         {post.title}
                       </h3>
                       <p className="text-gray-300">
-                        {post.content}
-                        {/* // {.substring(0, 10)} */}
-                        {/* {post.content.length > 10 ? "..." : ""} */}
+                        {post.content.substring(0, 10)}
+                        {post.content.length > 10 ? "..." : ""}
                       </p>
                       <div className="flex justify-between mt-2">
                         <p className="text-xs text-gray-500">{post.author}</p>
