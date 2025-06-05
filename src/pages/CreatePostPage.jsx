@@ -19,7 +19,7 @@ export default function CreatePostPage({ isOpen, onClose, addPost }) {
 
     try {
       const response = await fetch(
-        "https://project7-fullstackblock.onrender.com/posts",
+        `${import.meta.env.VITE_API_BASE_URL}/posts`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

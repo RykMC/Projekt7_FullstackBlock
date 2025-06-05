@@ -21,7 +21,7 @@ export default function PostDetail() {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://project7-fullstackblock.onrender.com/posts/${id}`
+          `${import.meta.env.VITE_API_BASE_URL}/posts/${id}`
         );
         if (!response.ok) {
           throw new Error(
@@ -88,9 +88,12 @@ export default function PostDetail() {
     });
 
     try {
-      const response = await fetch(`http://localhost:3000/posts/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error(`Fehler beim Löschen (${response.status})`);
       }

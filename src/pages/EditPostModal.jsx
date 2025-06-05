@@ -46,7 +46,7 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
 
     try {
       const response = await fetch(
-        `https://project7-fullstackblock.onrender.com/posts/${post.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/posts/${post.id}`,
         {
           method: "PUT",
           headers: {
@@ -61,7 +61,8 @@ export default function EditPostModal({ isOpen, onClose, post, onSave }) {
       }
       const result = await response.json();
       console.log("Result", result);
-      onSave(result.data); // Parent informieren
+
+      onSave(result.data[0]); // Parent informieren
       onClose(); // Modal schließen
     } catch (err) {
       console.error("Fehler beim Aktualisieren:", err);

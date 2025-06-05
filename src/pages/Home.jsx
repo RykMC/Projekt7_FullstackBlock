@@ -23,9 +23,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(
-          "https://project7-fullstackblock.onrender.com/posts"
-        );
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posts`);
         if (!res.ok) throw new Error("Fehler beim Laden");
         const json = await res.json();
         // Reverse the array to show newest posts first
