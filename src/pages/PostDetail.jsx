@@ -69,6 +69,7 @@ export default function PostDetail() {
   // Handler zum Speichern der bearbeiteten Post-Daten
   const handleSaveEdit = (updatedPost) => {
     setPost(updatedPost);
+    console.log("HandleSave", updatedPost);
     setActionMessage({
       type: "success",
       text: "Beitrag wurde erfolgreich aktualisiert.",
@@ -248,8 +249,8 @@ export default function PostDetail() {
         <EditPostModal
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
-          post={post}
           onSave={handleSaveEdit}
+          post={post}
         />
 
         {/* Löschen-Bestätigungsdialog */}
